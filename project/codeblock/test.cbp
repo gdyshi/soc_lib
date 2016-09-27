@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="test" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="../../tools/testing/utest_cunit.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../tools/testing/utest_cunit.h" />
+		<Unit filename="../../tools/testing/utest_heap.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../tools/testing/utest_heap.h" />
+		<Unit filename="../../tools/testing/utest_include.h" />
+		<Unit filename="../../tools/testing/utest_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../tools/testing/utest_list.h" />
+		<Unit filename="../../tools/testing/utest_log.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../tools/testing/utest_log.h" />
+		<Unit filename="../../tools/testing/utest_main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../tools/testing/utest_ring_buffer.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../tools/testing/utest_ring_buffer.h" />
+		<Unit filename="../../tools/testing/utest_stack.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../tools/testing/utest_stack.h" />
+		<Unit filename="../../tools/testing/utest_timer.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../tools/testing/utest_timer.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

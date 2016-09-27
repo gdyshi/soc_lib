@@ -1,0 +1,25 @@
+SET(CMAKE_SYSTEM_NAME Linux)
+
+PROJECT(soc_lib)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+#add_definitions(-DBUILD_12LEAD)
+
+ADD_SUBDIRECTORY( samples )
+ADD_SUBDIRECTORY( lib )
+ADD_SUBDIRECTORY( tools )
+
+#指定交叉编译环境安装目录...
+#SET(CMAKE_FIND_ROOT_PATH "...")
+#从来不在指定目录下查找工具程序
+#SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+
+#只在指定目录下查找库文件
+#SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+#只在指定目录下查找头文件
+#SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+
+
+#如何通过INCLUDE_DIRECTORIES指令加入非标准的头文件搜索路径。
+#如何通过LINK_DIRECTORIES指令加入非标准的库文件搜索路径。
+#如果通过TARGET_LINK_LIBRARIES为库或可执行二进制加入库链接。
