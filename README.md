@@ -1,7 +1,7 @@
 # soc_lib
 单片机编程通用库
 
-# dir struct
+# 目录结构
 ```
 documentation		linux下编译目录
 experiment 			试验库
