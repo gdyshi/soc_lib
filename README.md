@@ -1,7 +1,8 @@
 # soc_lib
-common lib which is used by SOC
+单片机编程通用库
 
 # dir struct
+```
 documentation		linux下编译目录
 experiment 			试验库
 include				公共头文件
@@ -16,4 +17,4 @@ lib 				库源文件
 	stack					栈模块
 tools 				工具软件
 	samples 				库使用示例
-
+```
