@@ -1,8 +1,7 @@
 /******************************************************************************
  * utest_queue.h
  * 
- * Copyright 2012 Wuhan Zoncare Electronics Co.,Ltd.
- * 
+ *
  * Description:  
  * - This file implements the follow functions:
  * - 

@@ -1,8 +1,5 @@
 /******************************************************************************
- * ZQ_ECG_filter_internal.h
- * 
- * Copyright 2012 Wuhan Zoncare Electronics Co.,Ltd.
- * 
+ *
  * Description:  
  * - This file implements the follow functions:
  * - 
@@ -17,39 +14,39 @@
 
 #ifndef __ZQ_GDYSHI_INTERNAL_H
 #define __ZQ_GDYSHI_INTERNAL_H
-//#define FILT_USE_EMG /* ¼¡µçµÄµ¥¶ÀÂË²¨¹¦ÄÜ(Ä¿Ç°²»ÓÃ¿ªÍ¨£¬ÒòÎª¼¡µçÂË²¨Óë¸ßÍ¨¹²ÓÃ) */
+//#define FILT_USE_EMG /* ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½(Ä¿Ç°ï¿½ï¿½ï¿½Ã¿ï¿½Í¨ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½) */
 /* -------------------------------------------------------------------------- */
-/* ---------------------------------- ³£Á¿¶¨ÒåÇø ---------------------------- */
+/* ---------------------------------- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ---------------------------- */
 /* -------------------------------------------------------------------------- */
-typedef double filt_temp_t;/* ÖÐ¼ä²ÎÊýÀàÐÍ */
-//typedef float filt_temp_t;/* ÖÐ¼ä²ÎÊýÀàÐÍ */
-typedef int filt_io_t;/* Íâ²¿½Ó¿ÚÀàÐÍ */
+typedef double filt_temp_t;/* ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+//typedef float filt_temp_t;/* ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+typedef int filt_io_t;/* ï¿½â²¿ï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½ */
 #if !defined(ARRAY_SIZE)
 #define ARRAY_SIZE(array) (sizeof(array)/sizeof(array[0])) 
 #endif
 #if !defined(NULL)
 #define NULL ((void *)0) 
 #endif
-#define FILT_INTERNAL_TYPE_HPASS       (0)/* é«˜é€?*/
-#define FILT_INTERNAL_TYPE_LPASS       (1)/* ä½Žé€?*/
-#define FILT_INTERNAL_TYPE_TRAP        (2)/* é™·æ³¢å™?*/
+#define FILT_INTERNAL_TYPE_HPASS       (0)/* é«˜ï¿½?*/
+#define FILT_INTERNAL_TYPE_LPASS       (1)/* ä½Žï¿½?*/
+#define FILT_INTERNAL_TYPE_TRAP        (2)/* é™·æ³¢ï¿½?*/
 #define FILT_INTERNAL_TYPE_EMG         (3)/* è‚Œç”µæ»¤æ³¢ */
 
-/* ×î´óÂË²¨Æ÷¸öÊý */
+/* ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 #ifdef FILT_USE_EMG
 #define MAX_FILT_NUM     (4)
 #else
-#define MAX_FILT_NUM     (3)/* ×î´óÂË²¨Æ÷¸öÊý */
+#define MAX_FILT_NUM     (3)/* ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 #endif /* FILT_USE_EMG */
-#define MAX_HPASS_NUM_NUM     (4000)/* ×î´ó¸ßÍ¨ÂË²¨·Ö×Ó¸öÊý */
-#define MAX_HPASS_DEN_NUM     (50)/* ×î´ó¸ßÍ¨ÂË²¨·ÖÄ¸¸öÊý */
-#define MAX_LPASS_NUM_NUM     (500)/* ×î´óµÍÍ¨ÂË²¨·Ö×Ó¸öÊý */
-#define MAX_LPASS_DEN_NUM     (50)/* ×î´óµÍÍ¨ÂË²¨·Ö×Ó¸öÊý */
-#define MAX_TRAP_NUM_NUM     (4000)/* ×î´óÏÝ²¨ÂË²¨·Ö×Ó¸öÊý */
-#define MAX_TRAP_DEN_NUM     (50)/* ×î´óÏÝ²¨ÂË²¨·Ö×Ó¸öÊý */
+#define MAX_HPASS_NUM_NUM     (4000)/* ï¿½ï¿½ï¿½ï¿½Í¨ï¿½Ë²ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½ï¿½ï¿½ */
+#define MAX_HPASS_DEN_NUM     (50)/* ï¿½ï¿½ï¿½ï¿½Í¨ï¿½Ë²ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ */
+#define MAX_LPASS_NUM_NUM     (500)/* ï¿½ï¿½ï¿½ï¿½Í¨ï¿½Ë²ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½ï¿½ï¿½ */
+#define MAX_LPASS_DEN_NUM     (50)/* ï¿½ï¿½ï¿½ï¿½Í¨ï¿½Ë²ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½ï¿½ï¿½ */
+#define MAX_TRAP_NUM_NUM     (4000)/* ï¿½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½ï¿½ï¿½ */
+#define MAX_TRAP_DEN_NUM     (50)/* ï¿½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½ï¿½ï¿½ */
 #ifdef FILT_USE_EMG
-#define MAX_EMG_NUM_NUM     (1)/* ×î´ó¼¡µçÂË²¨·Ö×Ó¸öÊý */
-#define MAX_EMG_DEN_NUM     (1)/* ×î´ó¼¡µçÂË²¨·Ö×Ó¸öÊý */
+#define MAX_EMG_NUM_NUM     (1)/* ï¿½ï¿½ó¼¡µï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½ï¿½ï¿½ */
+#define MAX_EMG_DEN_NUM     (1)/* ï¿½ï¿½ó¼¡µï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½ï¿½ï¿½ */
 #endif /* FILT_USE_EMG */
 
 #define NAME_FILT_HPASS_005    "hpass 0.05"
@@ -74,82 +71,82 @@ typedef int filt_io_t;/* Íâ²¿½Ó¿ÚÀàÐÍ */
 #define NAME_FILT_COMB_50_03       "comb 50 0.3"
 #define NAME_FILT_COMB_50_06       "comb 50 0.6"
 
-#define FILT_TYPE_A     (1)/* Ë³Ðò¼ÆËãµÄÂË²¨ÀàÐÍ */
-#define FILT_TYPE_B     (2)/* ÌøÔ¾¼ÆËãµÄÂË²¨ÀàÐÍ */
-/* ÂË²¨Æ÷AÀà²ÎÊýÀàÐÍ¶¨Òå */
+#define FILT_TYPE_A     (1)/* Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ */
+#define FILT_TYPE_B     (2)/* ï¿½ï¿½Ô¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ */
+/* ï¿½Ë²ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½ */
 typedef struct
 {
-    int filt_type;/* ÂË²¨Æ÷ÀàÐÍ */
+    int filt_type;/* ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
     
-    filt_temp_t  *numData;/* ·Ö×Ó²ÎÊý */
-    int num_num;/* ·Ö×Ó²ÎÊý¸öÊý */
-    int zero_num;/* ·Ö×Ó²ÎÊýÖÐ0µÄ¸öÊý */
-    int one_num;/* ·Ö×Ó²ÎÊýÖÐ1µÄ¸öÊý */
+    filt_temp_t  *numData;/* ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ */
+    int num_num;/* ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+    int zero_num;/* ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½Ä¸ï¿½ï¿½ï¿½ */
+    int one_num;/* ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½Ä¸ï¿½ï¿½ï¿½ */
     
-    filt_temp_t  *denData;/* ·ÖÄ¸²ÎÊý */
-    int den_num;/* ·ÖÄ¸²ÎÊý¸öÊý */    
+    filt_temp_t  *denData;/* ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ */
+    int den_num;/* ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */    
 }filt_type_a_par_t;
 
-/* ÂË²¨Æ÷BÀà²ÎÊýÀàÐÍ¶¨Òå */
+/* ï¿½Ë²ï¿½ï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½ */
 typedef struct
 {
-    int  seq;/* ÐòºÅ£¬´ËÐòºÅÎªmatlabÐòºÅ(´Ó1ÆðÊ¼) */
-    filt_temp_t  data;/* ²ÎÊýÖµ */
+    int  seq;/* ï¿½ï¿½Å£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªmatlabï¿½ï¿½ï¿½(ï¿½ï¿½1ï¿½ï¿½Ê¼) */
+    filt_temp_t  data;/* ï¿½ï¿½ï¿½ï¿½Öµ */
 }filt_b_ele_t;
 
 typedef struct
 {
-    int filt_parm_type;/* ÂË²¨²ÎÊýÀàÐÍ */
+    int filt_parm_type;/* ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 
-    int num_num;/* ·Ö×Ó²ÎÊý×Ü¸öÊý */
-    int num_num_valid;/* ·Ö×Ó²ÎÊýÖÐÓÐÐ§Êý¾Ý¸öÊý */
-    filt_b_ele_t  *numData;/* ·Ö×Ó²ÎÊý */    
+    int num_num;/* ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½Ü¸ï¿½ï¿½ï¿½ */
+    int num_num_valid;/* ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½Ý¸ï¿½ï¿½ï¿½ */
+    filt_b_ele_t  *numData;/* ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ */    
     
-    int den_num;/* ·ÖÄ¸²ÎÊý×Ü¸öÊý */    
-    int den_num_valid;/* ·ÖÄ¸²ÎÊýÖÐÓÐÐ§Êý¾Ý¸öÊý */
-    filt_b_ele_t  *denData;/* ·ÖÄ¸²ÎÊý */
+    int den_num;/* ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½Ü¸ï¿½ï¿½ï¿½ */    
+    int den_num_valid;/* ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½Ý¸ï¿½ï¿½ï¿½ */
+    filt_b_ele_t  *denData;/* ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ */
 }filt_type_b_par_t;
 
-/* ÂË²¨Æ÷ÀàÐÍ¶¨Òå */
+/* ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½ */
 typedef struct ZQ_ECG_FILT_ARG
 {
-    char * name;/* ÂË²¨Æ÷Ãû³Æ */    
-    int filt_type;/* ÂË²¨Æ÷ÀàÐÍ */    
-    /* ÂË²¨º¯Êý */
+    char * name;/* ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */    
+    int filt_type;/* ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */    
+    /* ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ */
     filt_temp_t (*zq_do_filt)(filt_temp_t * in_buf, filt_temp_t * out_buf, struct ZQ_ECG_FILT_ARG * filt_arg);
     
-    filt_temp_t gain_num;/* ²ÎÊýÔöÒæ(·Ö×Ó) */
-    filt_temp_t gain_den;/* ²ÎÊýÔöÒæ(·ÖÄ¸) */
+    filt_temp_t gain_num;/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½) */
+    filt_temp_t gain_den;/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ä¸) */
     
-    void  *ZQ_ECG_filt_type_par;/* ²ÎÊýÁÐ±í */
+    void  *ZQ_ECG_filt_type_par;/* ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ */
 }ZQ_ECG_filt_arg_t;
 
 typedef struct
 {
-    int buf_idx;/* »º³åÇøÖ¸Õë */
+    int buf_idx;/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ */
 }ZQ_ECG_filt_buf_len_t;
 
 typedef struct
 {
-    filt_temp_t * in_buf;/* ÊäÈë»º³åÇø */
-    int in_buf_total_len;/* ÊäÈë»º³åÇø×Ü³¤¶È(µ¥Î»filt_temp_t) */
-    int in_buf_min_cal_len;/* ÊäÈë»º³åÇø×îÐ¡ÔËËãµ¥Ôª³¤¶È(µ¥Î»filt_temp_t) */
-    int in_buf_idx[MAX_FILT_LEAD_NUM];/* ÊäÈë»º³åÇøÖ¸Õë */
-    filt_temp_t * out_buf;/* Êä³ö»º³åÇø */
-    int out_buf_total_len;/* Êä³ö»º³åÇø×Ü³¤¶È(µ¥Î»filt_temp_t) */
-    int out_buf_min_cal_len;/* Êä³ö»º³åÇø×îÐ¡ÔËËãµ¥Ôª³¤¶È(µ¥Î»filt_temp_t) */
-    int out_buf_idx[MAX_FILT_LEAD_NUM];/* Êä³ö»º³åÇøÖ¸Õë */
+    filt_temp_t * in_buf;/* ï¿½ï¿½ï¿½ë»ºï¿½ï¿½ï¿½ï¿½ */
+    int in_buf_total_len;/* ï¿½ï¿½ï¿½ë»ºï¿½ï¿½ï¿½ï¿½ï¿½Ü³ï¿½ï¿½ï¿½(ï¿½ï¿½Î»filt_temp_t) */
+    int in_buf_min_cal_len;/* ï¿½ï¿½ï¿½ë»ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ãµ¥Ôªï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Î»filt_temp_t) */
+    int in_buf_idx[MAX_FILT_LEAD_NUM];/* ï¿½ï¿½ï¿½ë»ºï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ */
+    filt_temp_t * out_buf;/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+    int out_buf_total_len;/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü³ï¿½ï¿½ï¿½(ï¿½ï¿½Î»filt_temp_t) */
+    int out_buf_min_cal_len;/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ãµ¥Ôªï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Î»filt_temp_t) */
+    int out_buf_idx[MAX_FILT_LEAD_NUM];/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ */
 }ZQ_ECG_filt_buf_t;
 
 /* -------------------------------------------------------------------------- */
-/* -------------------------------- ºê±í´ïÊ½¶¨ÒåÇø -------------------------- */
+/* -------------------------------- ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -------------------------- */
 /* -------------------------------------------------------------------------- */
 filt_temp_t do_filt_type_a(filt_temp_t * in_buf, filt_temp_t * out_buf, struct ZQ_ECG_FILT_ARG * filt_arg);
 filt_temp_t do_filt_type_b(filt_temp_t * in_buf, filt_temp_t * out_buf, struct ZQ_ECG_FILT_ARG * filt_arg);
 
 
 /* -------------------------------------------------------------------------- */
-/* -------------------------------- Êý¾ÝÀàÐÍ¶¨ÒåÇø -------------------------- */
+/* -------------------------------- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½ï¿½ï¿½ -------------------------- */
 /* -------------------------------------------------------------------------- */
 
 #endif /* _AMP_COMM_FORMAT_H_ */

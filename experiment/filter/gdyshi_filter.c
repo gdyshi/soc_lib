@@ -1,8 +1,6 @@
 /******************************************************************************
- * ZQ_ECG_filter.c
- * 
- * Copyright 2012 Wuhan Zoncare Electronics Co.,Ltd.
- * 
+ *
+ *
  * Description:  
  * - This file implements the follow functions:
  * - 
@@ -23,29 +21,29 @@
 #include "gdyshi_filter_internal.h"
 #include "gdyshi_filter_parm.h"
 
-ZQ_ECG_filt_arg_t * current_filt_array[MAX_FILT_NUM] = {0};/* ÒªÖ´ĞĞµÄÂË²¨ĞòÁĞ£¬¶¨ÒåÖ¸ÕëµÄÊı×é */
-/* ¸ßÍ¨ÂË²¨»º³å */
+ZQ_ECG_filt_arg_t * current_filt_array[MAX_FILT_NUM] = {0};/* ÒªÖ´ï¿½Ğµï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½Ğ£ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+/* ï¿½ï¿½Í¨ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ */
 filt_temp_t hpass_filt_in_buffer[MAX_FILT_LEAD_NUM][2 * MAX_HPASS_NUM_NUM+1] = {0};
 filt_temp_t hpass_filt_out_buffer[MAX_FILT_LEAD_NUM][2 * MAX_HPASS_DEN_NUM] = {0};
-/* µÍÍ¨ÂË²¨»º³å */
+/* ï¿½ï¿½Í¨ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ */
 filt_temp_t lpass_filt_in_buffer[MAX_FILT_LEAD_NUM][2 * MAX_LPASS_NUM_NUM+3] = {0};
 filt_temp_t lpass_filt_out_buffer[MAX_FILT_LEAD_NUM][2 * MAX_LPASS_DEN_NUM] = {0};
-/* Ïİ²¨ÂË²¨»º³å */
+/* ï¿½İ²ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ */
 filt_temp_t trap_filt_in_buffer[MAX_FILT_LEAD_NUM][2 * MAX_TRAP_NUM_NUM+5] = {0};
 filt_temp_t trap_filt_out_buffer[MAX_FILT_LEAD_NUM][2 * MAX_TRAP_DEN_NUM] = {0};
 #ifdef FILT_USE_EMG
-/* ¼¡µçÂË²¨»º³å */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ */
 filt_temp_t emg_filt_in_buffer[MAX_FILT_LEAD_NUM][2 * MAX_EMG_NUM_NUM+7] = {0};
 filt_temp_t emg_filt_out_buffer[MAX_FILT_LEAD_NUM][2 * MAX_EMG_DEN_NUM] = {0};
 #endif /* FILT_USE_EMG */
 
 ZQ_ECG_filt_buf_t filt_buffer[MAX_FILT_NUM] = {0};
 
-//---ËùÓĞÈ«¾Öº¯Êı---------------------------------------------------------------------------
+//---ï¿½ï¿½ï¿½ï¿½È«ï¿½Öºï¿½ï¿½ï¿½---------------------------------------------------------------------------
 /******************************************************************************
  * Function:     do_filt_type_a
- * Description:  Ë³Ğò¼ÆËãµÄÂË²¨
- * Input:        unsigned short lead_num£¬ filt_temp_t in_data  
+ * Description:  Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½
+ * Input:        unsigned short lead_numï¿½ï¿½ filt_temp_t in_data  
  * Output:       none
  * Return:       filt_temp_t 
  * Author:       gdyshi
@@ -55,14 +53,14 @@ ZQ_ECG_filt_buf_t filt_buffer[MAX_FILT_NUM] = {0};
 filt_temp_t do_filt_type_a(filt_temp_t * in_buf, filt_temp_t * out_buf, ZQ_ECG_filt_arg_t * filt_arg)
 {
     int i = 0;
-    int loop_num = 0;/* Ñ­»·´ÎÊı */
-    int num_loop_down = 0;/* ·Ö×ÓÑ­»·ÏÂÏŞ */
-    int num_loop_up = 0;/* ·Ö×ÓÑ­»·ÉÏÏŞ */
-    double temp_result = 0;/* ÖĞ¼ä½á¹û */
+    int loop_num = 0;/* Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+    int num_loop_down = 0;/* ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+    int num_loop_up = 0;/* ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+    double temp_result = 0;/* ï¿½Ğ¼ï¿½ï¿½ï¿½ */
     filt_temp_t * temp_buf = NULL;        
     filt_type_a_par_t * par_p = (filt_type_a_par_t *)filt_arg->ZQ_ECG_filt_type_par;
     filt_temp_t * num_den_data_p = NULL;
-    /* º¯Êı±í´ïÊ½
+    /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
         DEN_NUM                      NUM_NUM          
         -----                         -----                             
         \                             \                                   
@@ -73,13 +71,13 @@ filt_temp_t do_filt_type_a(filt_temp_t * in_buf, filt_temp_t * out_buf, ZQ_ECG_f
          i=0                          i=0                             
     */
     
-    /* ·Ö×Ó¼ÆËã
+    /* ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½
                 NUM_NUM
                 ----- 
                 \
                  \
                  /
-                /     numData(i)*input(i)   .ÆäÖĞnumDataÎªµ¹ĞòÅÅÁĞ
+                /     numData(i)*input(i)   .ï¿½ï¿½ï¿½ï¿½numDataÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      result =   -----
                 i=0            
     */
@@ -101,20 +99,20 @@ filt_temp_t do_filt_type_a(filt_temp_t * in_buf, filt_temp_t * out_buf, ZQ_ECG_f
     }
 #endif /* if 0 end*/
     
-    /* ·ÖÄ¸¼ÆËã
+    /* ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½
                 DEN_NUM
                 ----- 
                 \
                  \
                  /
-                /     denData(i)*output(i)   .ÆäÖĞdenDataÎªµ¹ĞòÅÅÁĞ
+                /     denData(i)*output(i)   .ï¿½ï¿½ï¿½ï¿½denDataÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      result -=  -----
                 i=0            
     */
     loop_num = par_p->den_num;
     num_den_data_p = par_p->denData;
     temp_buf = out_buf;
-    /* ·ÖÄ¸²ÎÊıµÄµÚÒ»¸öÊı¾İ²»²ÎÓëÔËËã */
+    /* ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½İ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
     //temp_buf--;
     for (i=1; i<loop_num; i++)
     {
@@ -128,7 +126,7 @@ filt_temp_t do_filt_type_a(filt_temp_t * in_buf, filt_temp_t * out_buf, ZQ_ECG_f
 
 /******************************************************************************
  * Function:     do_filt_type_b
- * Description:  ÌøÔ¾¼ÆËãµÄÂË²¨
+ * Description:  ï¿½ï¿½Ô¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½
  * Output:       none
  * Return:       ZQ_ECG_DO_FILT 
  * Author:       gdyshi
@@ -138,12 +136,12 @@ filt_temp_t do_filt_type_a(filt_temp_t * in_buf, filt_temp_t * out_buf, ZQ_ECG_f
 filt_temp_t do_filt_type_b(filt_temp_t * in_buf, filt_temp_t * out_buf, ZQ_ECG_filt_arg_t * filt_arg)
 {
     int i = 0;
-    int loop_num = 0;/* Ñ­»·´ÎÊı */
-    double temp_result = 0;/* ÖĞ¼ä½á¹û */
+    int loop_num = 0;/* Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+    double temp_result = 0;/* ï¿½Ğ¼ï¿½ï¿½ï¿½ */
     filt_temp_t * temp_buf = NULL;        
     filt_type_b_par_t * par_p = (filt_type_b_par_t *)filt_arg->ZQ_ECG_filt_type_par;
     filt_b_ele_t * par_ele_p = NULL;
-    /* º¯Êı±í´ïÊ½
+    /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
         DEN_NUM                      NUM_NUM          
         -----                         -----                             
         \                             \                                   
@@ -154,13 +152,13 @@ filt_temp_t do_filt_type_b(filt_temp_t * in_buf, filt_temp_t * out_buf, ZQ_ECG_f
          i=0                          i=0                             
     */
     
-    /* ·Ö×Ó¼ÆËã
+    /* ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½
                 NUM_NUM
                 ----- 
                 \
                  \
                  /
-                /     numData(i)*input(i)   .ÆäÖĞnumDataÎªµ¹ĞòÅÅÁĞ
+                /     numData(i)*input(i)   .ï¿½ï¿½ï¿½ï¿½numDataÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      result =   -----
                 i=0            
     */
@@ -172,20 +170,20 @@ filt_temp_t do_filt_type_b(filt_temp_t * in_buf, filt_temp_t * out_buf, ZQ_ECG_f
         temp_result += (double)par_ele_p[i].data * temp_buf[par_ele_p[i].seq-1];
     }
     
-    /* ·ÖÄ¸¼ÆËã
+    /* ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½
                 DEN_NUM
                 ----- 
                 \
                  \
                  /
-                /     denData(i)*output(i)   .ÆäÖĞdenDataÎªµ¹ĞòÅÅÁĞ
+                /     denData(i)*output(i)   .ï¿½ï¿½ï¿½ï¿½denDataÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      result -=  -----
                 i=0            
     */
     loop_num = par_p->den_num_valid;
     par_ele_p = par_p->denData;
     temp_buf = out_buf;
-    /* ·ÖÄ¸²ÎÊıµÄµÚÒ»¸öÊı¾İ²»²ÎÓëÔËËã */
+    /* ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½İ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
     //temp_buf--;
     for (i=1; i<loop_num; i++)
     {        
@@ -200,7 +198,7 @@ filt_temp_t do_filt_type_b(filt_temp_t * in_buf, filt_temp_t * out_buf, ZQ_ECG_f
 
 /******************************************************************************
  * Function:     print_current_filt_array
- * Description:  ´òÓ¡ÂË²¨Ö´ĞĞÊı×é
+ * Description:  ï¿½ï¿½Ó¡ï¿½Ë²ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * Input:        void  
  * Output:       none
  * Return:       static void 
@@ -228,7 +226,7 @@ static void print_current_filt_array(void)
 }
 /******************************************************************************
  * Function:     check_comb_filt
- * Description:  ¼ì²éÊÇ·ñÆôÓÃÊá×´ÂË²¨Æ÷
+ * Description:  ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´ï¿½Ë²ï¿½ï¿½ï¿½
  * Input:        void  
  * Output:       none
  * Return:       int 
@@ -250,14 +248,14 @@ static int check_comb_filt(void)
 		{
 			return result;
 		}
-		/* ÇĞ»»µ½03µÄÊá×´ÂË²¨Æ÷ */
+		/* ï¿½Ğ»ï¿½ï¿½ï¿½03ï¿½ï¿½ï¿½ï¿½×´ï¿½Ë²ï¿½ï¿½ï¿½ */
         if (0 == strcmp(NAME_FILT_HPASS_03,current_filt_array[FILT_INTERNAL_TYPE_HPASS]->name))
         {
             printf("change to comb_50_03\n");
             current_filt_array[FILT_INTERNAL_TYPE_TRAP] = &comb_50_03;
             current_filt_array[FILT_INTERNAL_TYPE_HPASS] = NULL;
         }
-        /* ÇĞ»»µ½06µÄÊá×´ÂË²¨Æ÷ */
+        /* ï¿½Ğ»ï¿½ï¿½ï¿½06ï¿½ï¿½ï¿½ï¿½×´ï¿½Ë²ï¿½ï¿½ï¿½ */
         else if (0 == strcmp(NAME_FILT_HPASS_06,current_filt_array[FILT_INTERNAL_TYPE_HPASS]->name))
         {
             printf("change to comb_50_06\n");
@@ -271,7 +269,7 @@ static int check_comb_filt(void)
 
 /******************************************************************************
  * Function:     do_set_hpass_filter
- * Description:  ÉèÖÃ¸ßÍ¨ÂË²¨
+ * Description:  ï¿½ï¿½ï¿½Ã¸ï¿½Í¨ï¿½Ë²ï¿½
  * Input:        unsigned short filter_value  
  * Output:       none
  * Return:       static int 
@@ -307,7 +305,7 @@ static int do_set_hpass_filter(unsigned short filter_value)
 
 /******************************************************************************
  * Function:     do_set_lpass_filter
- * Description:  ÉèÖÃµÍÍ¨ÂË²¨
+ * Description:  ï¿½ï¿½ï¿½Ãµï¿½Í¨ï¿½Ë²ï¿½
  * Input:        unsigned short filter_value  
  * Output:       none
  * Return:       static int 
@@ -351,7 +349,7 @@ static int do_set_lpass_filter(unsigned short filter_value)
 
 /******************************************************************************
  * Function:     do_set_trap_filter
- * Description:  ÉèÖÃÏİ²¨
+ * Description:  ï¿½ï¿½ï¿½ï¿½ï¿½İ²ï¿½
  * Input:        unsigned short filter_value  
  * Output:       none
  * Return:       static int 
@@ -384,7 +382,7 @@ static int do_set_trap_filter(unsigned short filter_value)
 #ifdef FILT_USE_EMG
 /******************************************************************************
  * Function:     do_set_emg_filter
- * Description:  ÉèÖÃ¼¡µçÂË²¨
+ * Description:  ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½Ë²ï¿½
  * Input:        unsigned short filter_value  
  * Output:       none
  * Return:       int 
@@ -430,7 +428,7 @@ int ZQ_ECG_FILTER_init(void)
     ZQ_ECG_filt_buf_t * filt_buf_p = NULL;
     printf("%s\n",__FUNCTION__);
 
-    /* HPASSÂË²¨»º³åÇø³õÊ¼»¯ */
+    /* HPASSï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ */
     filt_buf_p = &filt_buffer[FILT_INTERNAL_TYPE_HPASS];
     
     filt_buf_p->in_buf = hpass_filt_in_buffer;    
@@ -449,7 +447,7 @@ int ZQ_ECG_FILTER_init(void)
         filt_buf_p->out_buf_idx[i] = filt_buf_p->out_buf_total_len - filt_buf_p->out_buf_min_cal_len + 1;
     }
     
-    /* LPASSÂË²¨»º³åÇø³õÊ¼»¯ */
+    /* LPASSï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ */
     filt_buf_p = &filt_buffer[FILT_INTERNAL_TYPE_LPASS];
     
     filt_buf_p->in_buf = lpass_filt_in_buffer;    
@@ -468,7 +466,7 @@ int ZQ_ECG_FILTER_init(void)
         filt_buf_p->out_buf_idx[i] = filt_buf_p->out_buf_total_len - filt_buf_p->out_buf_min_cal_len + 1;
     }
     
-    /* TRAPÂË²¨»º³åÇø³õÊ¼»¯ */
+    /* TRAPï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ */
     filt_buf_p = &filt_buffer[FILT_INTERNAL_TYPE_TRAP];
     
     filt_buf_p->in_buf = trap_filt_in_buffer;    
@@ -487,7 +485,7 @@ int ZQ_ECG_FILTER_init(void)
         filt_buf_p->out_buf_idx[i] = filt_buf_p->out_buf_total_len - filt_buf_p->out_buf_min_cal_len + 1;
     }
 
-    /* ÂË²¨ĞòÁĞ³õÊ¼»¯ */
+    /* ï¿½Ë²ï¿½ï¿½ï¿½ï¿½Ğ³ï¿½Ê¼ï¿½ï¿½ */
     result |= ZQ_ECG_FILTER_set_filter(ZQ_ECG_FILT_TYPE_HPASS, ZQ_ECG_FILT_VAL_HPASS_06);
     result |= ZQ_ECG_FILTER_set_filter(ZQ_ECG_FILT_TYPE_TRAP, ZQ_ECG_FILT_VAL_TRAP_50);
     result |= ZQ_ECG_FILTER_set_filter(ZQ_ECG_FILT_TYPE_LPASS, ZQ_ECG_FILT_VAL_LPASS_25);
@@ -497,7 +495,7 @@ int ZQ_ECG_FILTER_init(void)
 
 /******************************************************************************
  * Function:     ZQ_ECG_FILTER_clear_filter_ch
- * Description:  Çå³ıÂË²¨»º´æ
+ * Description:  ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½
  * Input:        unsigned short lead_num  
  * Output:       none
  * Return:       int 
@@ -528,7 +526,7 @@ int ZQ_ECG_FILTER_clear_filter_ch(unsigned short lead_num)
 
 /******************************************************************************
  * Function:     ZQ_ECG_FILTER_set_filter
- * Description:  ÉèÖÃÂË²¨²ÎÊı
+ * Description:  ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½
  * Input:        unsigned short filter_type  
                 unsigned short filter_value  
  * Output:       none
@@ -562,14 +560,14 @@ int ZQ_ECG_FILTER_set_filter(unsigned short filter_type, unsigned short filter_v
             printf("%s enter_default!\n",__FUNCTION__);
             result = -1;
     }
-    /* ¼ì²éÊÇ·ñÆôÓÃÊá×´ÂË²¨Æ÷ */
+    /* ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´ï¿½Ë²ï¿½ï¿½ï¿½ */
     result = check_comb_filt();
     print_current_filt_array();
     return result;
 }
 /******************************************************************************
  * Function:     do_filt_buffer_shift
- * Description:  »º³åÇøÒÆÎ»
+ * Description:  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»
  * Input:        filt_temp_t * buf  
                 int total_len  
                 int min_cal_len  
@@ -588,7 +586,7 @@ static filt_temp_t * do_filt_buffer_shift(filt_temp_t * buf, int total_len, int 
     {
         (* idx)--;
     }
-    /* »º³åÇø·­×ª */
+    /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ª */
     else if(0 == *idx)
     {
         memmove(&buf[total_len-min_cal_len+1], &buf[0], sizeof(filt_temp_t)*(min_cal_len-1));
@@ -605,7 +603,7 @@ static filt_temp_t * do_filt_buffer_shift(filt_temp_t * buf, int total_len, int 
 
 /******************************************************************************
  * Function:     ZQ_ECG_FILTER_do_filter
- * Description:  Ö´ĞĞÂË²¨
+ * Description:  Ö´ï¿½ï¿½ï¿½Ë²ï¿½
  * Input:        int in_val  
                 unsigned char lead_num  
  * Output:       none
@@ -634,20 +632,20 @@ int ZQ_ECG_FILTER_do_filter(int in_val, unsigned char lead_num)
     {
         if (NULL != current_filt_array[i])
         {
-            /* »ñÈ¡»º³åÇøµØÖ· */
+            /* ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö· */
             in_buf = filt_buffer[i].in_buf + lead_num*filt_buffer[i].in_buf_total_len;
             out_buf = filt_buffer[i].out_buf + lead_num*filt_buffer[i].out_buf_total_len;
             
-            /* ÊäÈë»º³åÇøÒÆÎ» */
+            /* ï¿½ï¿½ï¿½ë»ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î» */
             in_buf = do_filt_buffer_shift(in_buf,filt_buffer[i].in_buf_total_len,
                                         filt_buffer[i].in_buf_min_cal_len,&(filt_buffer[i].in_buf_idx[lead_num]));
             in_buf[0]=temp_val;
             
-            /* Êä³ö»º³åÇøÒÆÎ» */
+            /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î» */
             out_buf = do_filt_buffer_shift(out_buf,filt_buffer[i].out_buf_total_len,
                                         filt_buffer[i].out_buf_min_cal_len,&(filt_buffer[i].out_buf_idx[lead_num]));
 
-            /* Ö´ĞĞÂË²¨º¯Êı */
+            /* Ö´ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ */
             temp_val = current_filt_array[i]->zq_do_filt(in_buf, out_buf, current_filt_array[i]);
             
             out_buf[0]=temp_val;

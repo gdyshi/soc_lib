@@ -1,8 +1,6 @@
 /******************************************************************************
- * ZQ_ECG_filter.h
- * 
- * Copyright 2012 Wuhan Zoncare Electronics Co.,Ltd.
- * 
+ *
+ *
  * Description:  
  * - This file implements the follow functions:
  * - 
